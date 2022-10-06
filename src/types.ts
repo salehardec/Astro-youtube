@@ -5,3 +5,14 @@ export interface IProduct {
 	image: string
 	description: string
 }
+
+export interface IRequest {
+	id: number
+	status: boolean
+	file: string
+	dateUpload: Date
+	dateSend: Date
+	whoSend: string
+	respStatus: string
+	respCode: number
+}
