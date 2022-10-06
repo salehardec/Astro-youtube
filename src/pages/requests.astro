@@ -1,15 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import RequestCard from "../components/RequestCard";
+import RequestsList from "../components/RequestsList";
 
 import { IRequest } from "../types";
 
 const response = await fetch("https://633eb2b983f50e9ba3b63447.mockapi.io/requests");
-const requests = (await response.json()) as IRequest[];
+const req = (await response.json());
 ---
 
 <Layout title="Обращения граждан">
-  <h1 class="text-lg font-bold">Список выгруженных в ПОС обращений граждан</h1>
+  <h1 class="text-lg font-bold">Список выгруженных обращений граждан</h1>
 
-  {requests.map((req) => <RequestCard client:load request={req} />)}
+  <RequestsList request={req} />)
 </Layout>
