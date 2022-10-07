@@ -2,12 +2,13 @@ import { IRequest } from '../types'
 import { useState, useEffect } from "preact/hooks";
 import RequestCard from "./RequestCard";
 
-export default function RequestsList() {
+
+export default function RequestsList () {
   const [query, setQuery] = useState("");
   const [request, setRequest] = useState<IRequest[]>([]);
 
   useEffect(() => {
-    fetch(`/api/search?q=${encodeURIComponent(query)}`)
+    fetch(`https://633eb2b983f50e9ba3b63447.mockapi.io/requests/:${encodeURIComponent(query)}`)
       .then((response) => response.json())
       .then((request) => setRequest(request));
   }, [query]);
@@ -41,15 +42,15 @@ export default function RequestsList() {
 
 
 /*interface RequestCardProps {
-	request: IRequest
+  request: IRequest
 }
 
 export default function RequestCard ({ request }: RequestCardProps) {
-	return <div className="border border-slate-400 rounded mb-2 p-3">
-		<h2 className="text-lg">{request.file}</h2>
-		<p className="font-bold">{request.status}</p>
+  return <div className="border border-slate-400 rounded mb-2 p-3">
+    <h2 className="text-lg">{request.file}</h2>
+    <p className="font-bold">{request.status}</p>
 
-		<a href={`/request/${request.id}`}>Открыть обращение</a>
-		<br />
-	</div>
+    <a href={`/request/${request.id}`}>Открыть обращение</a>
+    <br />
+  </div>
 }*/
