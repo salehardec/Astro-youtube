@@ -14,5 +14,5 @@ export interface IRequest {
 	dateSend: Date
 	whoSend: string
 	respStatus: string
-	respCode: number
+	respCode: string
 }

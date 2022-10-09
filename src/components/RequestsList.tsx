@@ -1,37 +1,44 @@
 import { IRequest } from '../types'
 import { useState, useEffect } from "preact/hooks";
 import RequestCard from "./RequestCard";
+import data from "../data.json";
 
 
 export default function RequestsList () {
-  const [query, setQuery] = useState("");
-  const [request, setRequest] = useState<IRequest[]>([]);
+	const [query, setQuery] = useState("");
+	const [request, setRequest] = useState<IRequest[]>([]);
+	data.map((req) => (
+			<a href={`/request/${req.id}`}>
+				<p>{req.file}</p>
+			</a>
+			))
 
-  useEffect(() => {
-    fetch(`https://633eb2b983f50e9ba3b63447.mockapi.io/requests/:${encodeURIComponent(query)}`)
-      .then((response) => response.json())
-      .then((request) => setRequest(request));
-  }, [query]);
 
-  return (
-    <>
-      <input
-        type="text"
-        name="q"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        className="p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-xl border-gray-300 border-2 rounded-md"
-        placeholder="Search"
-      />
-      <div className="mt-3 grid grid-cols-3 gap-5">
-        {request.slice(0, 10).map((request) => (
-          <a href={`/request/${request.id}`} key={request.id}>
-            <RequestCard request={request}></RequestCard>
-          </a>
-        ))}
-      </div>
-    </>
-  );
+	useEffect(() => {
+		fetch(`api/query/:${encodeURIComponent(query)}`)
+		.then((response) => response.json())
+		.then((request) => setRequest(request));
+	}, [query]);
+
+	return (
+		<>
+		<input
+			type="text"
+			name="q"
+			value={query}
+			onChange={(e) => setQuery(e.target.value)}
+			className="p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-xl border-gray-300 border-2 rounded-md"
+			placeholder="Search"
+		/>
+		<div className="mt-3 grid grid-cols-3 gap-5">
+			{request.slice(0, 10).map((request) => (
+			<a href={`/request/${request.id}`} key={request.id}>
+				<RequestCard request={request}></RequestCard>
+			</a>
+			))}
+		</div>
+		</>
+	);
 }
 
 
